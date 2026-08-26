@@ -2,6 +2,9 @@ steps:
   verify:
     image: node:22
     commands:
+      - git clone --depth 1 https://github.com/baditaflorin/mesh-common.git ../mesh-common
+      - git -C ../mesh-common fetch --depth 1 origin 18e8adaca461ecf19050478edb521fed32cf9a08
+      - git -C ../mesh-common checkout --detach 18e8adaca461ecf19050478edb521fed32cf9a08
       - npm ci
       - npm run fmt:check
       - npm run typecheck

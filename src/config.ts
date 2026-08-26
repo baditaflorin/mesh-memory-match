@@ -2,6 +2,7 @@ import { createMeshConfig } from "@baditaflorin/mesh-common";
 
 export const config = createMeshConfig({
   appName: "mesh-memory-match",
+  breadcrumbs: false,
   displayName: "Memory Match",
   visualProfile: "play",
   shellLayout: "inset",

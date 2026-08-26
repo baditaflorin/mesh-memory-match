@@ -1,4 +1,4 @@
-pipeline:
+steps:
   verify:
     image: node:22
     commands:
@@ -6,4 +6,4 @@ pipeline:
       - npm run fmt:check
       - npm run typecheck
       - npm run test:unit
-      - npm run build
+      - npm run smoke

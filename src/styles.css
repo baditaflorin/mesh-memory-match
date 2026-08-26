@@ -1,169 +1,497 @@
-/* App-local styles. Mesh chrome is supplied by mesh-common. */
+/* App-local styles. Mesh chrome and semantic tokens are supplied by mesh-common. */
 :root {
   color-scheme: dark;
 }
+
 * {
   box-sizing: border-box;
 }
+
 html,
 body,
 #root {
   min-height: 100%;
   margin: 0;
-  background: #110d1f;
-  color: #f7f2ff;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
+
+body {
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 80% -12%, rgb(245 185 66 / 15%), transparent 30rem),
+    radial-gradient(circle at 4% 48%, rgb(76 125 178 / 12%), transparent 29rem),
+    var(--mesh-canvas, #0f1220);
+  color: var(--mesh-text, #f7f4ed);
+  font-family: var(--mesh-font-sans, Inter, ui-sans-serif, system-ui, sans-serif);
+}
+
 button,
 input {
   font: inherit;
 }
+
 .memory-match {
-  width: min(100% - 2rem, 48rem);
+  width: min(100%, 74rem);
+  min-height: 100%;
   margin: 0 auto;
-  padding: 5.25rem 0 3.5rem;
+  padding: clamp(0.8rem, 2.2vw, 1.65rem) clamp(0.75rem, 2.5vw, 1.5rem) 2rem;
 }
-.memory-match__hero {
-  max-width: 39rem;
-  margin-bottom: 1.6rem;
+
+.memory-match__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
+  align-items: start;
+  gap: clamp(1rem, 2.5vw, 2rem);
 }
-.eyebrow {
-  margin: 0 0 0.35rem;
-  color: #c4b5fd;
-  font-size: 0.78rem;
-  font-weight: 750;
-  letter-spacing: 0.1em;
+
+.memory-match__workspace,
+.memory-match__side {
+  min-width: 0;
+}
+
+.memory-match__header {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 42rem;
+  margin: 0 0 1rem;
+}
+
+.eyebrow,
+.turn-kicker {
+  margin: 0;
+  color: var(--mesh-accent, #f5b942);
+  font-size: 0.72rem;
+  font-weight: 760;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
 h1 {
-  margin: 0;
-  font-size: clamp(2.25rem, 7vw, 4.25rem);
-  line-height: 0.98;
+  margin-bottom: 0;
+  color: var(--mesh-text, #f7f4ed);
+  font-size: clamp(2rem, 4.3vw, 3.55rem);
+  font-weight: 780;
   letter-spacing: -0.055em;
+  line-height: 0.98;
 }
+
+h2 {
+  margin-bottom: 0;
+  color: var(--mesh-text, #f7f4ed);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
 .lede {
-  margin: 0.75rem 0 0;
-  color: #d7d0e7;
-  font-size: 1.05rem;
-  line-height: 1.55;
+  max-width: 38rem;
+  margin-bottom: 0;
+  color: var(--mesh-text-muted, #b5bdd2);
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
-.game-panel,
-.player-panel {
-  border: 1px solid #41365f;
-  border-radius: 1.25rem;
-  background: linear-gradient(140deg, #211936, #171127);
-  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.22);
-}
+
 .game-panel {
-  padding: clamp(1rem, 4vw, 1.5rem);
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--mesh-border) 90%, var(--mesh-accent));
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 2%), transparent 28%),
+    var(--mesh-surface-raised, #212843);
 }
+
 .game-panel__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
+  padding: clamp(1rem, 2.8vw, 1.35rem) clamp(1rem, 3.2vw, 1.55rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--mesh-border) 78%, transparent);
 }
-.turn-status {
-  min-height: 1.5rem;
-  margin: 0;
-  color: #f2edff;
-  font-weight: 650;
+
+.game-panel__bar > div:first-child {
+  min-width: 0;
 }
+
+.game-panel__bar h2 {
+  margin-top: 0.2rem;
+}
+
+.game-panel__actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
 .reset-button {
-  border: 1px solid #73629f;
-  border-radius: 0.65rem;
-  background: transparent;
-  color: #f1ebff;
-  padding: 0.48rem 0.7rem;
-  cursor: pointer;
   white-space: nowrap;
 }
-.reset-button:hover:not(:disabled) {
-  background: #382a57;
+
+.game-panel__status-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.82rem clamp(1rem, 3.2vw, 1.55rem) 0;
 }
-.reset-button:focus-visible,
-.memory-card:focus-visible {
-  outline: 3px solid #fbbf24;
-  outline-offset: 3px;
+
+.turn-status {
+  max-width: 43rem;
+  min-height: 1.35rem;
+  margin-bottom: 0;
+  color: var(--mesh-text, #f7f4ed);
+  font-size: 0.94rem;
+  font-weight: 650;
+  line-height: 1.45;
 }
-.game-help,
-.privacy-note {
-  color: #c8c0d9;
-  font-size: 0.9rem;
-  line-height: 1.5;
+
+.match-count {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  color: var(--mesh-accent, #f5b942);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.55;
+  white-space: nowrap;
 }
+
+.game-panel__board {
+  padding: 0 clamp(1rem, 3.2vw, 1.55rem) clamp(1rem, 3.2vw, 1.55rem);
+}
+
 .game-help {
-  margin: 0.75rem 0 1rem;
+  margin: 0 0 0.85rem;
+  color: var(--mesh-text-muted, #b5bdd2);
+  font-size: 0.85rem;
+  line-height: 1.45;
 }
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.45rem, 2vw, 0.8rem);
+  gap: clamp(0.42rem, 1.2vw, 0.68rem);
 }
+
 .memory-card {
-  aspect-ratio: 1;
-  border: 1px solid #6d5b9b;
-  border-radius: 0.9rem;
-  background: radial-gradient(circle at 30% 20%, #4c3a75, #30234d);
-  color: #fff;
+  display: grid;
+  min-width: 0;
+  aspect-ratio: 1 / 0.88;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--mesh-border) 74%, var(--mesh-accent));
+  border-radius: clamp(0.72rem, 1.8vw, 1rem);
+  background:
+    radial-gradient(circle at 68% 18%, rgb(245 185 66 / 16%), transparent 48%),
+    linear-gradient(145deg, #303a5d, #1e243d 72%);
+  box-shadow: inset 0 1px rgb(255 255 255 / 8%);
+  color: #f6f0dd;
   cursor: pointer;
-  font-size: clamp(1.45rem, 7vw, 2.35rem);
-  font-weight: 800;
   transition:
-    transform 0.14s ease,
-    background 0.14s ease;
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
 }
+
 .memory-card:hover:not(:disabled) {
+  border-color: var(--mesh-accent, #f5b942);
+  box-shadow:
+    inset 0 1px rgb(255 255 255 / 13%),
+    0 0.55rem 1.25rem rgb(0 0 0 / 21%);
   transform: translateY(-2px);
-  background: #594183;
 }
+
+.memory-card:active:not(:disabled) {
+  transform: translateY(0);
+}
+
 .memory-card--revealed {
-  border-color: #ddd6fe;
-  background: #eee8ff;
-  color: #24163f;
+  border-color: color-mix(in srgb, var(--mesh-accent) 72%, #fff);
+  background: linear-gradient(145deg, #f8efd7, #e8d9b8);
+  color: #2d3c5f;
 }
+
 .memory-card--matched {
-  border-color: #86efac;
-  background: #17633f;
-  color: #effff4;
+  border-color: color-mix(in srgb, var(--mesh-success) 76%, #fff);
+  background: linear-gradient(145deg, #1f654e, #17463d);
+  color: #f2f8e8;
 }
+
 .memory-card:disabled {
   cursor: default;
   opacity: 1;
 }
-.match-count {
-  margin: 1rem 0 0;
-  color: #c4b5fd;
-  font-variant-numeric: tabular-nums;
+
+.memory-card__mark {
+  position: relative;
+  display: grid;
+  width: clamp(2rem, 5vw, 3.05rem);
+  aspect-ratio: 1;
+  place-items: center;
+  opacity: 0;
+  transform: scale(0.76);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
+
+.memory-card--revealed .memory-card__mark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.memory-card__mark::before,
+.memory-card__mark::after,
+.memory-card__mark-core {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  content: "";
+}
+
+.memory-card__mark--aurora::before {
+  width: 100%;
+  height: 2px;
+  background: currentcolor;
+  box-shadow: 0 0 0 1px currentcolor;
+  transform: rotate(45deg);
+}
+
+.memory-card__mark--aurora::after {
+  width: 100%;
+  height: 2px;
+  background: currentcolor;
+  box-shadow: 0 0 0 1px currentcolor;
+  transform: rotate(-45deg);
+}
+
+.memory-card__mark--aurora .memory-card__mark-core {
+  width: 0.54rem;
+  height: 0.54rem;
+  border: 2px solid currentcolor;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.memory-card__mark--orbit::before {
+  width: 100%;
+  height: 100%;
+  border: 2px solid currentcolor;
+  border-radius: 999px;
+}
+
+.memory-card__mark--orbit::after {
+  width: 34%;
+  height: 34%;
+  border-radius: 999px;
+  background: currentcolor;
+}
+
+.memory-card__mark--ember::before {
+  width: 70%;
+  height: 70%;
+  border: 2px solid currentcolor;
+  transform: rotate(45deg);
+}
+
+.memory-card__mark--ember .memory-card__mark-core {
+  width: 26%;
+  height: 26%;
+  background: currentcolor;
+  transform: rotate(45deg);
+}
+
+.memory-card__mark--leaf::before {
+  width: 64%;
+  height: 100%;
+  border: 2px solid currentcolor;
+  border-radius: 100% 0 100% 0;
+  transform: rotate(-45deg);
+}
+
+.memory-card__mark--leaf::after {
+  width: 2px;
+  height: 82%;
+  background: currentcolor;
+  transform: rotate(45deg);
+}
+
+.memory-card__mark--wave::before,
+.memory-card__mark--wave::after {
+  width: 100%;
+  height: 42%;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.memory-card__mark--wave::before {
+  transform: translateY(-28%);
+}
+
+.memory-card__mark--wave::after {
+  transform: translateY(42%);
+}
+
+.memory-card__mark--spark::before {
+  width: 100%;
+  height: 2px;
+  background: currentcolor;
+  box-shadow: 0 0 0 1px currentcolor;
+}
+
+.memory-card__mark--spark::after {
+  width: 2px;
+  height: 100%;
+  background: currentcolor;
+  box-shadow: 0 0 0 1px currentcolor;
+}
+
+.memory-card__mark--spark .memory-card__mark-core {
+  width: 66%;
+  height: 66%;
+  border: 2px solid currentcolor;
+  border-radius: 999px;
+}
+
 .player-panel {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding: 1rem 1.2rem;
+  display: grid;
+  gap: 0.65rem;
+  border-color: color-mix(in srgb, var(--mesh-border) 92%, var(--mesh-accent));
 }
+
+.player-panel h2 {
+  font-size: 1.2rem;
+}
+
 .player-note {
-  margin: 0;
-  color: #e9e2f7;
-  line-height: 1.45;
+  margin-bottom: 0.2rem;
+  color: var(--mesh-text-muted, #b5bdd2);
+  font-size: 0.9rem;
+  line-height: 1.48;
 }
+
 .player-panel .mesh-name-input {
-  min-width: min(100%, 13rem);
+  width: 100%;
+  min-width: 0;
 }
+
 .privacy-note {
-  margin: 1.2rem 0.25rem 0;
+  margin: 0.9rem 0.15rem 0;
+  color: var(--mesh-text-muted, #b5bdd2);
+  font-size: 0.78rem;
+  line-height: 1.5;
 }
+
+@media (max-width: 52rem) {
+  .memory-match__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .memory-match__side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .privacy-note {
+    margin: 0.25rem 0 0;
+  }
+}
+
 @media (max-width: 38rem) {
   .memory-match {
-    padding-top: 4.75rem;
+    padding-inline: 0.75rem;
   }
-  .player-panel {
-    align-items: stretch;
+
+  .memory-match__header {
+    margin-bottom: 0.8rem;
+  }
+
+  .game-panel__bar,
+  .game-panel__status-row {
+    align-items: flex-start;
+  }
+
+  .game-panel__bar {
     flex-direction: column;
+    gap: 0.75rem;
   }
+
+  .game-panel__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .game-panel__status-row {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
   .card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .memory-card {
+    aspect-ratio: 1;
+  }
+
+  .memory-match__side {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 38.0625rem) and (max-height: 44rem) {
+  .memory-match {
+    padding-top: 0.55rem;
+    padding-bottom: 1rem;
+  }
+
+  .memory-match__header {
+    gap: 0.25rem;
+    margin-bottom: 0.65rem;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 3.6vw, 2.7rem);
+  }
+
+  .lede {
+    font-size: 0.88rem;
+  }
+
+  .game-panel__bar {
+    padding-block: 0.75rem;
+  }
+
+  .game-panel__status-row {
+    padding-top: 0.5rem;
+  }
+
+  .game-help {
+    margin-bottom: 0.55rem;
+  }
+
+  .card-grid {
+    gap: 0.4rem;
+  }
+
+  .memory-card {
+    aspect-ratio: 1 / 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-card,
+  .memory-card__mark {
+    transition: none;
   }
 }

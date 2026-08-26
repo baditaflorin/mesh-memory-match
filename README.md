@@ -4,6 +4,11 @@ An accessible, browser-local matching game for small groups. Players share a
 room link, then flip the same compact deck together; matching pairs remain
 visible for everyone.
 
+The first screen is the live board: current turn, shared match progress, and
+the card table are immediately actionable. The app uses Mesh's `play` visual
+profile and inset product bar while preserving the same direct peer-to-peer
+room model.
+
 ## Privacy and interaction
 
 - No account, analytics, location, or server-stored score.
@@ -39,9 +44,11 @@ The deployed static app is published from `main` → `/docs` on GitHub Pages.
 
 ![screenshot](docs/screenshot.png)
 
+![two peers matching a shared pair](docs/demo.gif)
+
 > Two peers, side-by-side, in the same room. Drop a `tests/demo/scenario.mjs`
 > exporting `default async (a, b) => …` and run `npm run demo` to regenerate
-> `docs/preview.png` plus `docs/demo-a.webm` / `docs/demo-b.webm` clips.
+> `docs/preview.png` and `docs/demo.gif`.
 
 ![preview](docs/preview.png)
 
